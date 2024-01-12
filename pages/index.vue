@@ -68,9 +68,8 @@ export default {
       this.isOpen = true
     },
     actionFromButton(btnIdentify){
-      console.log(btnIdentify);
-      console.log(this.createItem.fields);
-      this.isOpen = false
+      this.popUpObject = {};
+      this.closePopUp();
     }
   }
 }
