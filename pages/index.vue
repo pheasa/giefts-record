@@ -46,9 +46,15 @@ export default {
             'value':''
           },
           {
+            'tag':'radio',
+            'type':'CRY',
+            'label':'Currency',
+            'value':'',
+          },
+          {
             'tag':'input',
-            'type':'text',
-            'label':'title',
+            'type':'number',
+            'label':'amount',
             'value':''
           }
         ]

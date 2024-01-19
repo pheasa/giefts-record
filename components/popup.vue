@@ -10,7 +10,7 @@
         </div>
       </template>
       <div class="relative mb-4" v-for="field in dataToUp.fields">
-        <label for="{{ field.label }}" class="text-sm leading-7 text-gray-400">{{ field.label[0].toUpperCase() + field.label.slice(1) }}</label>
+        <label :for="field.label" class="text-sm leading-7 text-gray-400">{{ field.label[0].toUpperCase() + field.label.slice(1) }}</label>
         <div class="relative">
           <input
             v-if="field.tag == 'input'"
@@ -23,6 +23,14 @@
             v-model="field.value"
             class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent py-1 px-3 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out placeholder:text-gray-500 focus:border-blue-500 focus:bg-transparent focus:ring-2 focus:ring-transparent"
           />
+          <URadioGroup v-model="field.value" :options="field.options" v-if="field.tag == 'radio'">
+            <template #label="{ option }">
+              <p class="italic">
+                <UIcon :name="option.icon" />
+                {{ option.label }}
+              </p>
+            </template>
+          </URadioGroup>
         </div>
       </div>
       <UButtonGroup class="flex justify-end">
@@ -41,5 +49,18 @@ export default {
           this.$emit('closePopupCallback');
       },
     },
+    watch:{
+      dataToUp(newValue){
+        newValue.fields.forEach(field => {
+            if(field.tag == 'radio'){
+              field.options = [
+                { value: 'email', label: 'Email', icon: 'i-heroicons-at-symbol' },
+                { value: 'sms', label: 'Phone (SMS)', icon: 'i-heroicons-phone' },
+                { value: 'push', label: 'Push notification', icon: 'i-heroicons-bell' }
+              ];
+            }
+          });
+      }
+    }
 }
 </script>
